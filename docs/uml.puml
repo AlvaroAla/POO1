@@ -1,0 +1,67 @@
+@startuml
+interface Identificavel {
+  +getId(): String
+}
+abstract class Pessoa {
+  -id: String
+  -nome: String
+  -email: String
+}
+class Usuario {
+  -matricula: String
+  -limiteEmprestimos: int
+  -bloqueado: boolean
+}
+class Bibliotecario {
+  -registro: String
+}
+
+abstract class ItemAcervo {
+  -id: String
+  -titulo: String
+  -anoPublicacao: int
+  +getPrazoEmprestimoDias(): int
+  +getMultaDiaria(): double
+}
+class Livro { -autor: String; -isbn: String }
+class Revista { -edicao: String }
+class MidiaDigital { -formato: String }
+
+class Exemplar {
+  -id: String
+  -codigoBarras: String
+  -status: StatusExemplar
+  -item: ItemAcervo
+}
+class Emprestimo {
+  -id: String
+  -exemplar: Exemplar
+  -usuario: Usuario
+  -dataEmprestimo: LocalDate
+  -dataPrevista: LocalDate
+  -dataDevolucao: LocalDate
+}
+class Biblioteca {
+  -usuarios: List<Usuario>
+  -exemplares: List<Exemplar>
+  -emprestimos: List<Emprestimo>
+}
+
+Pessoa <|-- Usuario
+Pessoa <|-- Bibliotecario
+Identificavel <|.. Pessoa
+Identificavel <|.. ItemAcervo
+Identificavel <|.. Exemplar
+Identificavel <|.. Emprestimo
+
+ItemAcervo <|-- Livro
+ItemAcervo <|-- Revista
+ItemAcervo <|-- MidiaDigital
+
+Exemplar o-- ItemAcervo
+Emprestimo *-- Exemplar
+Emprestimo *-- Usuario
+Biblioteca "1" *-- "0..*" Usuario
+Biblioteca "1" *-- "0..*" Exemplar
+Biblioteca "1" *-- "0..*" Emprestimo
+@enduml
