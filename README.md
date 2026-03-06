@@ -33,5 +33,3 @@ java -cp out br.edu.biblioteca.app.Main
 - `data/` arquivo persistido
 - `docs/` relatório + UML (gerados)
 
-## Observação (screenshots)
-Para o relatório, execute o sistema e tire prints das telas (Usuários, Acervo e Empréstimos) e substitua no PDF caso sua professora exija prints reais.
